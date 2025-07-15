@@ -1,6 +1,7 @@
 'use client';
 
-import { Card, CardContent, Typography } from "@mui/material";
+import { useState } from "react";
+import { Card, CardContent, Typography, MenuItem, Select } from "@mui/material";
 import {
   LineChart,
   Line,
@@ -11,27 +12,51 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
+type YearlyBillingData = {
+  monthlyRevenue: number[];
+  annualRevenue: number;
+  invoicesIssued: number;
+  activeClients: number;
+  yearLabel: string;
+};
+
 type Props = {
-  data: number[];
+  data: YearlyBillingData[];
 };
 
 const monthLabels = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
 
 export default function MonthlyRevenueChart({ data }: Props) {
-  const chartData = data.map((value, index) => ({
+  // State to track selected year index
+  const [selectedYearIndex, setSelectedYearIndex] = useState(0);
+
+  // Data for the selected year
+  const selectedYearData = data[selectedYearIndex];
+  const chartData = selectedYearData.monthlyRevenue.map((value, index) => ({
     name: monthLabels[index],
     value,
   }));
-  console.log("Monthly revenue data:", data);
-
 
   return (
-    
     <Card>
       <CardContent>
         <Typography variant="h6" gutterBottom>
-          Receita Mensal
+          Receita Mensal - {selectedYearData.yearLabel}
         </Typography>
+
+        {/* Year selector dropdown */}
+        <Select
+          value={selectedYearIndex}
+          onChange={(e) => setSelectedYearIndex(Number(e.target.value))}
+          sx={{ mb: 2 }}
+        >
+          {data.map((year, index) => (
+            <MenuItem key={year.yearLabel} value={index}>
+              {year.yearLabel}
+            </MenuItem>
+          ))}
+        </Select>
+
         <ResponsiveContainer width="100%" height={300}>
           <LineChart
             data={chartData}
