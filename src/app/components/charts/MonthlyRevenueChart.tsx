@@ -1,7 +1,7 @@
+// MonthlyRevenueChart.tsx
 'use client';
 
-import { useState } from "react";
-import { Card, CardContent, Typography, MenuItem, Select } from "@mui/material";
+import { Card, CardContent, Typography, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import {
   LineChart,
   Line,
@@ -22,20 +22,22 @@ type YearlyBillingData = {
 
 type Props = {
   data: YearlyBillingData[];
+  selectedYearIndex: number;
+  onYearChange: (index: number) => void;
 };
 
 const monthLabels = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
 
-export default function MonthlyRevenueChart({ data }: Props) {
-  // State to track selected year index
-  const [selectedYearIndex, setSelectedYearIndex] = useState(0);
-
-  // Data for the selected year
+export default function MonthlyRevenueChart({ data, selectedYearIndex, onYearChange }: Props) {
   const selectedYearData = data[selectedYearIndex];
   const chartData = selectedYearData.monthlyRevenue.map((value, index) => ({
     name: monthLabels[index],
     value,
   }));
+
+  const handleYearChange = (e: SelectChangeEvent) => {
+    onYearChange(Number(e.target.value));
+  };
 
   return (
     <Card>
@@ -44,14 +46,13 @@ export default function MonthlyRevenueChart({ data }: Props) {
           Receita Mensal - {selectedYearData.yearLabel}
         </Typography>
 
-        {/* Year selector dropdown */}
         <Select
-          value={selectedYearIndex}
-          onChange={(e) => setSelectedYearIndex(Number(e.target.value))}
-          sx={{ mb: 2 }}
+          value={String(selectedYearIndex)}
+          onChange={handleYearChange}
+          sx={{ mb: 2, minWidth: 120 }}
         >
           {data.map((year, index) => (
-            <MenuItem key={year.yearLabel} value={index}>
+            <MenuItem key={year.yearLabel} value={String(index)}>
               {year.yearLabel}
             </MenuItem>
           ))}

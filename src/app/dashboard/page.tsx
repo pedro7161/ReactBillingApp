@@ -1,24 +1,45 @@
 'use client';
 
+import { useState } from "react";
 import { useBilling } from '@/context/BillingContext';
 import clientsData from '@/data/clients.json';
 import MonthlyRevenueChart from '@/app/components/charts/MonthlyRevenueChart';
 import AnnualRevenueChart from '@/app/components/charts/AnnualRevenueChart';
+import StatsCard from '@/app/components/dashboard/cards/statsCards';
 
 export default function Dashboard() {
   const { billingData } = useBilling();
 
-  // billingData is now an array of yearly billing objects
-  // Use the latest year for summary stats (assuming the first item is the latest)
-  const latestYear = billingData[0] ?? {
+  // Estado do ano selecionado no gráfico mensal (inicializa no último ano do array)
+  const [selectedYearIndex, setSelectedYearIndex] = useState(billingData.length - 1);
+
+  // Ano mais recente geral (para os cards fixos no topo)
+  const latestYear = billingData.length > 0 ? billingData[billingData.length - 1] : {
     monthlyRevenue: [],
     annualRevenue: 0,
     invoicesIssued: 0,
     activeClients: 0,
+    yearLabel: "",
+  };
+
+  // Dados do ano selecionado no gráfico mensal (para os cards que atualizam)
+  const selectedYear = billingData[selectedYearIndex] ?? {
+    monthlyRevenue: [],
+    annualRevenue: 0,
+    invoicesIssued: 0,
+    activeClients: 0,
+    yearLabel: "",
   };
 
   return (
     <div className="p-6">
+      <div className="flex gap-8 mb-8 justify-center">
+        <StatsCard title="Faturas Emitidas (Ano Atual)" value={latestYear.invoicesIssued} />
+        <StatsCard title="Clientes Ativos (Ano Atual)" value={latestYear.activeClients} />
+      </div>
+
+   
+
       <h1 className="text-2xl font-bold mb-4">Lista de Clientes</h1>
       <div className="grid gap-4">
         {clientsData.map((client) => (
@@ -34,18 +55,18 @@ export default function Dashboard() {
         <h1 className="text-2xl font-bold">Dashboard de Faturação</h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Pass the entire array to MonthlyRevenueChart for year selection */}
-          <MonthlyRevenueChart data={billingData} />
-
-          {/* Pass just the latest year's annual revenue */}
+          <MonthlyRevenueChart
+            data={billingData}
+            selectedYearIndex={selectedYearIndex}
+            onYearChange={setSelectedYearIndex}
+          />
           <AnnualRevenueChart data={billingData} />
         </div>
 
-        {/* Uncomment and update if you want to show these stats */}
-        {/* <div className="flex gap-8">
-          <StatsCard title="Faturas Emitidas" value={latestYear.invoicesIssued} />
-          <StatsCard title="Clientes Ativos" value={latestYear.activeClients} />
-        </div> */}
+        <div className="flex gap-8 mb-8">
+          <StatsCard title={`Faturas Emitidas (${selectedYear.yearLabel})`} value={selectedYear.invoicesIssued} />
+          <StatsCard title={`Clientes Ativos (${selectedYear.yearLabel})`} value={selectedYear.activeClients} />
+        </div>
       </div>
     </div>
   );
