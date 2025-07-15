@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { useBilling } from '@/context/BillingContext';
-import clientsData from '@/data/clients.json';
+
 import MonthlyRevenueChart from '@/app/components/charts/MonthlyRevenueChart';
 import AnnualRevenueChart from '@/app/components/charts/AnnualRevenueChart';
 import StatsCard from '@/app/components/dashboard/cards/statsCards';
+import ClientsCarousel from "@/app/components/dashboard/clientsCarousel/clientCarousel";
 
 export default function Dashboard() {
   const { billingData } = useBilling();
@@ -40,16 +41,8 @@ export default function Dashboard() {
 
    
 
-      <h1 className="text-2xl font-bold mb-4">Lista de Clientes</h1>
-      <div className="grid gap-4">
-        {clientsData.map((client) => (
-          <div key={client.id} className="bg-white shadow-md p-4 rounded-md">
-            <p className="font-semibold">{client.name}</p>
-            <p className="text-gray-500">Plano: {client.plan}</p>
-            <p className="text-green-600 font-bold">€{client.value}</p>
-          </div>
-        ))}
-      </div>
+     <h1 className="text-2xl font-bold mb-4">Lista de Clientes</h1>
+      <ClientsCarousel />
 
       <div className="p-8 space-y-8">
         <h1 className="text-2xl font-bold">Dashboard de Faturação</h1>
