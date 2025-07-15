@@ -1,0 +1,4 @@
+[
+  { "id": 1, "name": "Cliente A", "plan": "Premium", "value": 100 },
+  { "id": 2, "name": "Cliente B", "plan": "Básico", "value": 50 }
+]

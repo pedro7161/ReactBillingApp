@@ -34,3 +34,48 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+---
+
+## 📝 Requisitos Funcionais
+
+### Dashboard de Faturação
+
+- Exibir dados como:
+  - Receita Mensal e Anual (gráficos)
+  - Número de faturas emitidas
+  - Clientes ativos no mês
+- Os dados devem ser apresentados em gráficos interativos
+
+### Página de Requisitos da Empresa
+
+- Listar requisitos de compliance, como:
+  - Relatórios obrigatórios (ex: impostos, auditorias)
+  - Documentação necessária para o processamento de faturas
+  - Deadlines importantes
+- Funcionalidade de "Check" para marcar os requisitos já cumpridos
+
+### Simulação de Fatura
+
+- Formulário simples onde o utilizador pode:
+  - Inserir dados de um cliente fictício
+  - Gerar uma "pré-visualização" de uma fatura (frontend apenas)
+
+### Componentização e Responsividade
+
+- Site totalmente responsivo e otimizado para desktop, tablet e mobile
+- Abordagem modular para os componentes React
+
+---
+
+## ⚙️ Requisitos Técnicos
+
+- Utilizar Next.js com:
+  - Hooks e Context API para o estado global
+- Consumo de dados Mockup:
+  - Criar um ficheiro JSON ou usar uma API mock para os dados
+- UI/UX apelativa:
+  - Pode usar bibliotecas de design como Material-UI, Ant Design ou TailwindCSS
+- Código bem documentado e limpo:
+  - Nomeação clara de componentes e funções
+  - Estrutura organizada dos ficheiros
