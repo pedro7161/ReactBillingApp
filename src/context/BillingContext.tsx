@@ -1,7 +1,8 @@
-// src/context/BillingContext.tsx
+
 'use client';
 
 import { createContext, useContext, useState, ReactNode } from 'react';
+import billingDataJSON from '@/data/billing.json';
 
 interface BillingData {
   monthlyRevenue: number[];
@@ -17,18 +18,16 @@ interface BillingContextType {
   setBillingData: React.Dispatch<React.SetStateAction<BillingData>>;
 }
 
-const defaultBillingData: BillingData = {
-  monthlyRevenue: [],
-  annualRevenue: [],
-  invoicesCount: 0,
-  activeClients: 0,
-};
-
 const BillingContext = createContext<BillingContextType | undefined>(undefined);
 
 export const BillingProvider = ({ children }: { children: ReactNode }) => {
   const [clients, setClients] = useState<any[]>([]);
-  const [billingData, setBillingData] = useState<BillingData>(defaultBillingData);
+  const [billingData, setBillingData] = useState<BillingData>({
+    monthlyRevenue: billingDataJSON.monthlyRevenue,
+    annualRevenue: [billingDataJSON.annualRevenue],
+    invoicesCount: billingDataJSON.invoicesIssued,
+    activeClients: billingDataJSON.activeClients,
+  });
 
   return (
     <BillingContext.Provider value={{ clients, setClients, billingData, setBillingData }}>
