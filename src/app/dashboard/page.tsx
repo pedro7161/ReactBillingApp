@@ -46,6 +46,11 @@ export default function Dashboard() {
 
       <div className="p-8 space-y-8">
         <h1 className="text-2xl font-bold">Dashboard de Faturação</h1>
+        
+        <div className="flex gap-8 mb-8">
+          <StatsCard title={`Faturas Emitidas (${selectedYear.yearLabel})`} value={selectedYear.invoicesIssued} />
+          <StatsCard title={`Clientes Ativos (${selectedYear.yearLabel})`} value={selectedYear.activeClients} />
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <MonthlyRevenueChart
@@ -56,10 +61,7 @@ export default function Dashboard() {
           <AnnualRevenueChart data={billingData} />
         </div>
 
-        <div className="flex gap-8 mb-8">
-          <StatsCard title={`Faturas Emitidas (${selectedYear.yearLabel})`} value={selectedYear.invoicesIssued} />
-          <StatsCard title={`Clientes Ativos (${selectedYear.yearLabel})`} value={selectedYear.activeClients} />
-        </div>
+
       </div>
     </div>
   );
