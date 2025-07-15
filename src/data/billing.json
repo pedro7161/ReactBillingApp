@@ -1,0 +1,30 @@
+[
+  {
+    "monthlyRevenue": [0, 18000, 16000, 20000, 19000, 21000, 23000, 24000, 22000, 25000, 27000, 26000],
+    "annualRevenue": 246000,
+    "invoicesIssued": 1400,
+    "activeClients": 180,
+    "yearLabel": "2020"
+  },
+  {
+    "monthlyRevenue": [26000, 12000, 11000, 14000, 13000, 15000, 17000, 18000, 16000, 19000, 21000, 20000],
+    "annualRevenue": 462000,
+    "invoicesIssued": 980,
+    "activeClients": 100,
+    "yearLabel": "2021"
+  },
+  {
+    "monthlyRevenue": [15000, 12000, 10000, 11000, 9000, 12000, 14000, 13000, 12000, 14000, 15000, 16000],
+    "annualRevenue": 599000,
+    "invoicesIssued": 1100,
+    "activeClients": 120,
+    "yearLabel": "2022"
+  },
+  {
+    "monthlyRevenue": [22000, 15000, 13000, 17000, 16000, 18000, 20000, 21000, 19000, 22000, 24000, 30000],
+    "annualRevenue": 825000,
+    "invoicesIssued": 1250,
+    "activeClients": 150,
+    "yearLabel": "2023"
+  }
+]

@@ -1,4 +1,24 @@
 [
   { "id": 1, "name": "Cliente A", "plan": "Premium", "value": 100 },
-  { "id": 2, "name": "Cliente B", "plan": "Básico", "value": 50 }
+  { "id": 2, "name": "Cliente B", "plan": "Básico", "value": 50 },
+  { "id": 3, "name": "Cliente C", "plan": "Standard", "value": 75 },
+  { "id": 4, "name": "Cliente D", "plan": "Premium", "value": 120 },
+  { "id": 5, "name": "Cliente E", "plan": "Básico", "value": 60 },
+  { "id": 6, "name": "Cliente F", "plan": "Standard", "value": 80 },
+  { "id": 7, "name": "Cliente G", "plan": "Premium", "value": 110 },
+  { "id": 8, "name": "Cliente H", "plan": "Básico", "value": 55 },
+  { "id": 9, "name": "Cliente I", "plan": "Standard", "value": 70 },
+  { "id": 10, "name": "Cliente J", "plan": "Premium", "value": 130 },
+  { "id": 11, "name": "Cliente K", "plan": "Básico", "value": 65 },
+  { "id": 12, "name": "Cliente L", "plan": "Standard", "value": 85 },
+  { "id": 13, "name": "Cliente M", "plan": "Premium", "value": 140 },
+  { "id": 14, "name": "Cliente N", "plan": "Básico", "value": 52 },
+  { "id": 15, "name": "Cliente O", "plan": "Standard", "value": 78 },
+  { "id": 16, "name": "Cliente P", "plan": "Premium", "value": 125 },
+  { "id": 17, "name": "Cliente Q", "plan": "Básico", "value": 58 },
+  { "id": 18, "name": "Cliente R", "plan": "Standard", "value": 90 },
+  { "id": 19, "name": "Cliente S", "plan": "Premium", "value": 135 },
+  { "id": 20, "name": "Cliente T", "plan": "Básico", "value": 62 },
+  { "id": 21, "name": "Cliente U", "plan": "Standard", "value": 82 },
+  { "id": 22, "name": "Cliente V", "plan": "Premium", "value": 115 }
 ]
