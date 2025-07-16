@@ -1,40 +1,103 @@
-﻿// Página de Requisitos da Empresa:
-//     Listar requisitos de compliance, como:
-//          Relatórios obrigatórios (e.g., impostos, auditorias).
-//          Documentação necessária para o processamento de faturas.
-//          Deadlines importantes.
-//     Criar uma funcionalidade de "Check" para marcar os requisitos já cumpridos.
+﻿"use client";
+
+import { useState } from "react";
+
+import RequirementList from "@/app/components/requisitos/RequirementList";
+import ExtraRequirementSection from "@/app/components/requisitos/ExtraRequirementSection";
+import DeadlineBlock from "@/app/components/requisitos/DeadlineBlock";
+
+import requirementDataJSON from "@/data/requirements.json";
+import deadlines from '@/data/deadlines.json';
+
+const allRequirements = requirementDataJSON;
 
 export default function RequisitosPage() {
-  return <div>
-    <h1>Requisitos de Compliance</h1>
-    <p>Listagem de requisitos obrigatórios da empresa.</p>
+  const [completedIds, setCompletedIds] = useState<number[]>(
+    allRequirements.filter((r) => r.checked).map((r) => r.id)
+  );
 
-    <h2>Requisitos Atuais</h2> {/* requesitos que a empresa cumpre atualmente */}
-   
-    <p>Esta seção lista os requisitos de compliance que a empresa deve cumprir:</p>{/* todos os requesitos que a empresa tem que cumprir */}
-    {/* scomponente que renderiza uma lista de requisitos obrigatorios */}
+  const toggleCompleted = (id: number) => {
+    setCompletedIds((prev) =>
+      prev.includes(id) ? prev.filter((r) => r !== id) : [...prev, id]
+    );
+  };
 
-    <h3>Requisitos Extras</h3>
-  
-    <section />  {/* substituir section por componente que renderiza a lista de todos requisitos que faltam mas nao sao obrigatorios */}
-    
-    <ul>
-      <li>Relatórios obrigatórios </li> 
-      {/* adicionar talvez uma lista com nomes aleatorios de relatorios obrigatorios em falta */}
-     
-      <li>Documentação necessária para o processamento de faturas</li>
-      {/* adicionar um textarea para escrever a documentacao necessaria */}
+  const [showUpdateMsg, setShowUpdateMsg] = useState(false);
 
-      <li>Deadlines importantes</li>
-      {/* talvez meter uns sections blocks com datas random e titulos de deadlines importantes */}
+  const mandatory = allRequirements.filter((r) => r.mandatory);
+  const optional = allRequirements.filter((r) => !r.mandatory);
 
-    </ul>
-    <p>Clique no botão abaixo para marcar os requisitos já cumpridos:</p>
-    {/* criar um componente com todos os requisitos que a empresa tem que cumprir com uma checkbox ha esquerda que pode vir ja marcado */}
+  const handleUpdateClick = () => {
+  setShowUpdateMsg(true);
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  setTimeout(() => setShowUpdateMsg(false), 10000);
+  };
 
-   <button>Marcar como Cumprido</button> {/*  vai atualizar o state dos requisitos cumpridos e devera atualizar a pagina para mostrar os requisitos restantes. */}
+  return (
+    <div className="p-6 space-y-8">
+      {showUpdateMsg && (
+        <div className="w-full bg-green-100 border border-green-400 text-green-900 px-4 py-3 rounded mb-4 flex font-medium">
+          Os requisitos marcados foram atualizados (mock)
+        </div>
+      )}
+      <h1 className="text-3xl font-bold">Requisitos de Compliance</h1>
+      <p className="text-gray-600">
+        Listagem de requisitos obrigatórios e extras que a empresa deve cumprir.
+      </p>
 
+      <section>
+        <h2 className="text-2xl font-semibold mb-2">Requisitos Atuais</h2>
+        <RequirementList
+          requirements={mandatory}
+          completedIds={completedIds}
+          onToggle={toggleCompleted}
+        />
+      </section>
 
-  </div>;
+      <section>
+        <h3 className="text-xl font-semibold mt-8 mb-2">Requisitos Extras</h3>
+        <ExtraRequirementSection
+          requirements={optional}
+          completedIds={completedIds}
+          onToggle={toggleCompleted}
+        />
+      </section>
+
+      <section>
+        <h3 className="text-xl font-semibold mt-8 mb-2">
+          Documentação Necessária
+        </h3>
+        <textarea
+          className="w-full border border-gray-300 rounded-md p-2"
+          placeholder="Ex: NIF, Recibo, IBAN..."
+        />
+      </section>
+
+  <section>
+  <h3 className="text-xl font-semibold mt-8 mb-2">
+    Deadlines Importantes
+  </h3>
+
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    {deadlines.map((deadline) => (
+      <DeadlineBlock
+        key={deadline.id}
+        title={deadline.title}
+        date={deadline.date}
+      />
+    ))}
+  </div>
+</section>
+<div className="flex flex-col items-center mt-8">
+
+    <button
+        className="bg-blue-600 text-white px-6 py-2 rounded-md font-semibold hover:bg-blue-700 transition-colors"
+        onClick={handleUpdateClick}
+      >
+    Atualizar Requisitos Marcados
+  </button>
+
+</div>
+    </div>
+  );
 }

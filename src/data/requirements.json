@@ -1,0 +1,62 @@
+[
+    {
+        "id": 1,
+        "title": "Relatório Anual de Impostos",
+        "mandatory": true,
+        "checked": true
+    },
+    {
+        "id": 2,
+        "title": "Auditoria Financeira Externa",
+        "mandatory": true,
+        "checked": false
+    },
+    {
+        "id": 3,
+        "title": "Declaração de IVA Mensal",
+        "mandatory": true,
+        "checked": true
+    },
+    {
+        "id": 4,
+        "title": "Cadastro de Fornecedores",
+        "mandatory": false,
+        "checked": false
+    },
+    {
+        "id": 5,
+        "title": "Plano de Sustentabilidade",
+        "mandatory": false,
+        "checked": false
+    },
+    {
+        "id": 6,
+        "title": "Relatório de Desempenho Operacional",
+        "mandatory": false,
+        "checked": false
+    },
+    {
+        "id": 7,
+        "title": "Certificação de Qualidade ISO",
+        "mandatory": true,
+        "checked": false
+    },
+    {
+        "id": 8,
+        "title": "Plano de Treinamento de Funcionários",
+        "mandatory": true,
+        "checked": false
+    },
+    {
+        "id": 9,
+        "title": "Revisão de Contratos de Clientes",
+        "mandatory": true,
+        "checked": false
+    },
+    {
+        "id": 10,
+        "title": "Inventário de Ativos",
+        "mandatory": false,
+        "checked": false
+    }
+]
