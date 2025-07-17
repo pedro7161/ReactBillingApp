@@ -4,19 +4,16 @@ import "./globals.css";
 import { BillingProvider } from "@/context/BillingContext";
 import Navbar from "./components/navbar/Navbar";
 
-// Load Geist Sans font and assign it to a CSS variable for global use
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
-// Load Geist Mono font and assign it to a CSS variable for global use
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
 
-// Metadata object used by Next.js for the HTML head
 export const metadata: Metadata = {
   title: "TechBilling",
   description: "Sistema de faturação com Next.js",

@@ -27,20 +27,17 @@ type LineItem = {
  * @component
  * @returns {JSX.Element} The invoice simulator page
  */
-export default function SimuladorPage() {
-  // State to store client information
+export default function SimuladorPage() {  
   const [clientData, setClientData] = useState({
     name: '',
     nif: '',
     address: '',
   });
-
-  // State to store the list of line items in the invoice
+  
   const [lineItems, setLineItems] = useState<LineItem[]>([
     { description: '', quantity: 1, price: 0 },
   ]);
-
-  // Controls whether to show the invoice preview
+  
   const [showInvoice, setShowInvoice] = useState(false);
 
   /**
@@ -92,8 +89,7 @@ export default function SimuladorPage() {
     setLineItems([{ description: '', quantity: 1, price: 0 }]);
     setShowInvoice(false);
   };
-
-  // Calculate the total price of all line items
+  
   const total = lineItems.reduce((sum, item) => sum + item.quantity * item.price, 0);
 
   /**
@@ -103,36 +99,29 @@ export default function SimuladorPage() {
    */
   const exportToPDF = async () => {
     const element = document.getElementById("invoice-preview");
-    if (element) {
-      // Save current classes
-      const prevClasses = element.className;
-      // Remove Tailwind background classes to prevent background color issues in PDF
+    if (element) {      
+      const prevClasses = element.className;      
       const filteredClasses = prevClasses
         .split(" ")
         .filter((c) => !c.startsWith("bg-"))
         .join(" ");
       element.className = filteredClasses;
-
-      // Capture screenshot with higher scale for better resolution
+      
       const canvas = await html2canvas(element, { scale: 2 });
-
-      // Restore original classes
+      
       element.className = prevClasses;
-
-      // Convert canvas to image data
+      
       const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF({
         orientation: "portrait",
         unit: "mm",
         format: "a4",
       });
-
-      // Calculate image dimensions to fit nicely on A4 page
-      const pdfWidth = 190; // A4 width minus margins
+      
+    const pdfWidth = 190; 
       const imgProps = pdf.getImageProperties(imgData);
       const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-
-      // Add image to PDF and save
+      
       pdf.addImage(imgData, "PNG", 10, 10, pdfWidth, pdfHeight);
       pdf.save("fatura.pdf");
     }

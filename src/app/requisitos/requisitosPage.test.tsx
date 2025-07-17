@@ -1,12 +1,10 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import RequisitosPage from './page';
 
-// ✅ Mock scrollTo to prevent jsdom crash
 beforeAll(() => {
     window.scrollTo = jest.fn();
 });
 
-// Mock requirements and deadlines data
 jest.mock('@/data/requirements.json', () => ([
     { id: 1, label: 'Req 1', mandatory: true, checked: false },
     { id: 2, label: 'Req 2', mandatory: false, checked: false },
@@ -15,7 +13,6 @@ jest.mock('@/data/deadlines.json', () => ([
     { id: 1, title: 'Deadline 1', date: '2024-12-31' },
 ]));
 
-// Mock child components
 jest.mock('@/app/components/requisitos/requirements/requirementList/RequirementList', () => ({ requirements, completedIds, onToggle }: any) => (
     <div>
         RequirementList

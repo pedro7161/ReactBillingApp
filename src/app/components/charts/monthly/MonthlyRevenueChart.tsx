@@ -1,4 +1,3 @@
-// MonthlyRevenueChart.tsx
 'use client';
 
 import { Card, CardContent, Typography, MenuItem, Select, SelectChangeEvent } from "@mui/material";
@@ -54,7 +53,6 @@ const monthLabels = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Se
 export default function MonthlyRevenueChart({ data, selectedYearIndex, onYearChange }: Props) {
   const selectedYearData = data[selectedYearIndex];
 
-  // Transform raw data into chart-friendly format
   const chartData = selectedYearData.monthlyRevenue.map((value, index) => ({
     name: monthLabels[index],
     value,

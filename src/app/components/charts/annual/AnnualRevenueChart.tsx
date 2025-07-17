@@ -38,7 +38,6 @@ type Props = {
  * @returns {JSX.Element} The rendered chart inside a Material UI card.
  */
 export default function AnnualRevenueChart({ data }: Props) {
-  // Transform the input data to match the structure required by Recharts
   const chartData = data.map(({ annualRevenue, yearLabel }) => ({
     name: yearLabel,
     value: annualRevenue,

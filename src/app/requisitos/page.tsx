@@ -26,7 +26,6 @@ const allRequirements = requirementDataJSON;
  * @returns {JSX.Element}
  */
 export default function RequisitosPage() {
-  // State to track IDs of completed requirements
   const [completedIds, setCompletedIds] = useState<number[]>(
     allRequirements.filter((r) => r.checked).map((r) => r.id)
   );
@@ -42,10 +41,8 @@ export default function RequisitosPage() {
     );
   };
 
-  // State to control display of a mock update notification message
   const [showUpdateMsg, setShowUpdateMsg] = useState(false);
 
-  // Separate requirements into mandatory and optional for display
   const mandatory = allRequirements.filter((r) => r.mandatory);
   const optional = allRequirements.filter((r) => !r.mandatory);
 
@@ -56,7 +53,7 @@ export default function RequisitosPage() {
   const handleUpdateClick = () => {
     setShowUpdateMsg(true);
     window.scrollTo({ top: 0, behavior: "smooth" });
-    setTimeout(() => setShowUpdateMsg(false), 10000); // Hide after 10 seconds
+    setTimeout(() => setShowUpdateMsg(false), 10000);
   };
 
   return (

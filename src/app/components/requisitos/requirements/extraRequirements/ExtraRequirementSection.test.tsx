@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import ExtraRequirementSection from './ExtraRequirementSection';
 
-// Mock the RequirementList component
 jest.mock('../requirementList/RequirementList', () => {
   return function MockRequirementList({ requirements, completedIds, onToggle }: any) {
     return (
