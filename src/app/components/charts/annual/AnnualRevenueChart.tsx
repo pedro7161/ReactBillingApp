@@ -11,16 +11,34 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
+/**
+ * Represents a single annual revenue data point.
+ */
 type AnnualDataItem = {
+  /** Revenue value for the year */
   annualRevenue: number;
+  /** Year label (e.g., "2022", "2023") */
   yearLabel: string;
 };
 
+/**
+ * Props for the AnnualRevenueChart component.
+ */
 type Props = {
+  /** Array of annual revenue data points */
   data: AnnualDataItem[];
 };
 
+/**
+ * Renders a responsive line chart displaying annual revenue over time.
+ *
+ * @component
+ * @param {Props} props - The component props.
+ * @param {AnnualDataItem[]} props.data - Array of revenue data with year labels.
+ * @returns {JSX.Element} The rendered chart inside a Material UI card.
+ */
 export default function AnnualRevenueChart({ data }: Props) {
+  // Transform the input data to match the structure required by Recharts
   const chartData = data.map(({ annualRevenue, yearLabel }) => ({
     name: yearLabel,
     value: annualRevenue,

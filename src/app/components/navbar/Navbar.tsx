@@ -3,6 +3,16 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+/**
+ * Renders a navigation bar with links to key pages of the application.
+ *
+ * Highlights the active link based on the current pathname.
+ * - Links: Dashboard, Requisitos, Simulação
+ * - Uses Next.js `Link` and `usePathname` for routing
+ *
+ * @component
+ * @returns {JSX.Element} A responsive navbar with active link highlighting
+ */
 export default function Navbar() {
   const pathname = usePathname();
 

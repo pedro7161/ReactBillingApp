@@ -12,29 +12,58 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
+/**
+ * Represents yearly billing data for a single year.
+ */
 type YearlyBillingData = {
+  /** Array of monthly revenue values (indexed Jan to Dec) */
   monthlyRevenue: number[];
+  /** Total annual revenue for the year */
   annualRevenue: number;
+  /** Number of invoices issued that year */
   invoicesIssued: number;
+  /** Number of active clients in that year */
   activeClients: number;
+  /** Year label (e.g., "2023") */
   yearLabel: string;
 };
 
+/**
+ * Props for the MonthlyRevenueChart component.
+ */
 type Props = {
+  /** Array of billing data for each year */
   data: YearlyBillingData[];
+  /** Index of the currently selected year in the data array */
   selectedYearIndex: number;
+  /** Callback triggered when a new year is selected */
   onYearChange: (index: number) => void;
 };
 
+/** Labels for each month in abbreviated format (Portuguese) */
 const monthLabels = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
 
+/**
+ * Renders a responsive line chart of monthly revenue for a selected year,
+ * with a dropdown to switch between years.
+ *
+ * @component
+ * @param {Props} props - Component props.
+ * @returns {JSX.Element} A chart card displaying revenue trends.
+ */
 export default function MonthlyRevenueChart({ data, selectedYearIndex, onYearChange }: Props) {
   const selectedYearData = data[selectedYearIndex];
+
+  // Transform raw data into chart-friendly format
   const chartData = selectedYearData.monthlyRevenue.map((value, index) => ({
     name: monthLabels[index],
     value,
   }));
 
+  /**
+   * Handles the year selection change from dropdown.
+   * @param {SelectChangeEvent} e - Selection change event
+   */
   const handleYearChange = (e: SelectChangeEvent) => {
     onYearChange(Number(e.target.value));
   };

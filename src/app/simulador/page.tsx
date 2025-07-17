@@ -11,23 +11,56 @@ type LineItem = {
   price: number;
 };
 
+/**
+ * SimuladorPage component
+ *
+ * A simple invoice simulator that allows users to input client data and multiple line items,
+ * preview the invoice, and export it as a PDF.
+ *
+ * Features:
+ * - Client information input (name, NIF, address)
+ * - Dynamic line items with description, quantity, and price fields
+ * - Calculates total invoice amount
+ * - Preview invoice in the UI
+ * - Export the invoice preview to PDF using html2canvas and jsPDF
+ *
+ * @component
+ * @returns {JSX.Element} The invoice simulator page
+ */
 export default function SimuladorPage() {
+  // State to store client information
   const [clientData, setClientData] = useState({
     name: '',
     nif: '',
     address: '',
   });
 
+  // State to store the list of line items in the invoice
   const [lineItems, setLineItems] = useState<LineItem[]>([
     { description: '', quantity: 1, price: 0 },
   ]);
 
+  // Controls whether to show the invoice preview
   const [showInvoice, setShowInvoice] = useState(false);
 
+  /**
+   * Handles changes in client input fields
+   * Updates clientData state with the new value for the given input name
+   *
+   * @param e - The input change event
+   */
   const handleClientChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setClientData({ ...clientData, [e.target.name]: e.target.value });
   };
 
+  /**
+   * Handles changes to a specific field in a line item at a given index
+   * Updates the lineItems state accordingly
+   *
+   * @param index - Index of the line item to update
+   * @param field - Field of the line item to update ('description' | 'quantity' | 'price')
+   * @param value - New value for the field
+   */
   const handleItemChange = (index: number, field: keyof LineItem, value: string | number) => {
     const updatedItems = [...lineItems];
     const item = { ...updatedItems[index] };
@@ -43,22 +76,73 @@ export default function SimuladorPage() {
     setLineItems(updatedItems);
   };
 
+  /**
+   * Adds a new empty line item to the invoice
+   */
   const addItem = () => {
     setLineItems([...lineItems, { description: '', quantity: 1, price: 0 }]);
   };
 
+  /**
+   * Clears the client data and resets the line items to a single empty item
+   * Also hides the invoice preview
+   */
   const clearForm = () => {
     setClientData({ name: '', nif: '', address: '' });
     setLineItems([{ description: '', quantity: 1, price: 0 }]);
     setShowInvoice(false);
   };
 
+  // Calculate the total price of all line items
   const total = lineItems.reduce((sum, item) => sum + item.quantity * item.price, 0);
+
+  /**
+   * Exports the invoice preview to a PDF file.
+   * It uses html2canvas to take a snapshot of the invoice preview and then jsPDF to generate the PDF.
+   * The background classes from Tailwind are temporarily removed to avoid styling issues in the PDF.
+   */
+  const exportToPDF = async () => {
+    const element = document.getElementById("invoice-preview");
+    if (element) {
+      // Save current classes
+      const prevClasses = element.className;
+      // Remove Tailwind background classes to prevent background color issues in PDF
+      const filteredClasses = prevClasses
+        .split(" ")
+        .filter((c) => !c.startsWith("bg-"))
+        .join(" ");
+      element.className = filteredClasses;
+
+      // Capture screenshot with higher scale for better resolution
+      const canvas = await html2canvas(element, { scale: 2 });
+
+      // Restore original classes
+      element.className = prevClasses;
+
+      // Convert canvas to image data
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF({
+        orientation: "portrait",
+        unit: "mm",
+        format: "a4",
+      });
+
+      // Calculate image dimensions to fit nicely on A4 page
+      const pdfWidth = 190; // A4 width minus margins
+      const imgProps = pdf.getImageProperties(imgData);
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+      // Add image to PDF and save
+      pdf.addImage(imgData, "PNG", 10, 10, pdfWidth, pdfHeight);
+      pdf.save("fatura.pdf");
+    }
+  };
 
   return (
     <div className="max-w-4xl mx-auto p-6">
       <h1 className="text-2xl font-bold mb-4">Simulador de Fatura</h1>
 
+      {/* Client Data Input Fields */}
       <div className="grid gap-4 mb-6">
         <input
           className="border p-2 rounded"
@@ -83,6 +167,7 @@ export default function SimuladorPage() {
         />
       </div>
 
+      {/* Line Items Section */}
       <h2 className="text-xl font-semibold mb-2">Itens da Fatura</h2>
       {lineItems.map((item, index) => (
         <div key={index} className="grid grid-cols-3 gap-2 mb-2">
@@ -109,25 +194,28 @@ export default function SimuladorPage() {
         </div>
       ))}
 
-      <button onClick={addItem} className="mb-4 px-4 py-2 bg-blue-600 text-white rounded">
+      {/* Button to add more line items */}
+      <button onClick={addItem} className="mb-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors">
         Adicionar Item
       </button>
 
+      {/* Action Buttons */}
       <div className="flex gap-4 mb-8">
         <button
           onClick={() => setShowInvoice(true)}
-          className="px-4 py-2 bg-green-600 text-white rounded"
+          className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors"
         >
           Gerar Fatura
         </button>
         <button
           onClick={clearForm}
-          className="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400"
+          className="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400 transition-colors"
         >
           Limpar
         </button>
       </div>
 
+      {/* Invoice Preview Section */}
       {showInvoice && (
         <div id="invoice-preview" className="invoice-preview-pdf border rounded p-6 bg-white shadow-md">
           <h2 className="text-xl font-bold mb-4">Pré-Visualização da Fatura</h2>
@@ -161,31 +249,14 @@ export default function SimuladorPage() {
               </tr>
             </tfoot>
           </table>
-          {/* <button
-            onClick={async () => {
-              const element = document.getElementById("invoice-preview");
-              if (element) {
-            
-                const prevClass = element.className;
-                element.className = prevClass
-                  .split(' ')
-                  .filter(c => !c.startsWith('bg-'))
-                  .join(' ') + ' invoice-preview-pdf';
 
-                const canvas = await html2canvas(element);
-
-                element.className = prevClass;
-
-                const imgData = canvas.toDataURL("image/png");
-                const pdf = new jsPDF();
-                pdf.addImage(imgData, "PNG", 10, 10, 190, 0);
-                pdf.save("fatura.pdf");
-              }
-            }}
-            className="mt-4 px-4 py-2 bg-red-600 text-white rounded"
+          {/* Export PDF button */}
+          <button
+            onClick={exportToPDF}
+            className="mt-4 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
           >
             Exportar PDF
-          </button> */}
+          </button>
         </div>
       )}
     </div>

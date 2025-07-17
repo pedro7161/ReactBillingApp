@@ -12,9 +12,19 @@ type Client = {
   name: string;
   plan: string;
   value: number;
-  _key?: string;
+  _key?: string; 
 };
 
+/**
+ * Displays a carousel of client information that updates automatically every 5 seconds.
+ *
+ * - Randomly rotates through client entries.
+ * - Shows up to 3 clients at a time.
+ * - Each client card includes name, plan, and revenue value.
+ *
+ * @component
+ * @returns {JSX.Element} A list of rotating client cards.
+ */
 export default function ClientsCarousel() {
   const [visibleClients, setVisibleClients] = useState<Client[]>([]);
 
@@ -27,10 +37,11 @@ export default function ClientsCarousel() {
       }))
     );
 
+    
     const interval = setInterval(() => {
       const randomClient = {
         ...clientsData[Math.floor(Math.random() * clientsData.length)],
-        _key: uuidv4(),
+        _key: uuidv4(), 
       };
 
       setVisibleClients((prev) => {
@@ -39,7 +50,7 @@ export default function ClientsCarousel() {
       });
     }, INTERVAL_MS);
 
-    return () => clearInterval(interval);
+    return () => clearInterval(interval); 
   }, []);
 
   return (
