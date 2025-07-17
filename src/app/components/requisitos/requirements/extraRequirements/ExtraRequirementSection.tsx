@@ -1,4 +1,4 @@
-import RequirementList from './RequirementList';
+import RequirementList from '../requirementList/RequirementList';
 
 type Requirement = {
   id: number;

@@ -3,18 +3,16 @@
 import { useState } from "react";
 import { useBilling } from '@/context/BillingContext';
 
-import MonthlyRevenueChart from '@/app/components/charts/MonthlyRevenueChart';
-import AnnualRevenueChart from '@/app/components/charts/AnnualRevenueChart';
+import MonthlyRevenueChart from '@/app/components/charts/monthly/MonthlyRevenueChart';
+import AnnualRevenueChart from '@/app/components/charts/annual/AnnualRevenueChart';
 import StatsCard from '@/app/components/dashboard/cards/statsCards';
 import ClientsCarousel from "@/app/components/dashboard/clientsCarousel/clientCarousel";
 
 export default function Dashboard() {
   const { billingData } = useBilling();
-
-  // Estado do ano selecionado no gráfico mensal (inicializa no último ano do array)
+  
   const [selectedYearIndex, setSelectedYearIndex] = useState(billingData.length - 1);
-
-  // Ano mais recente geral (para os cards fixos no topo)
+  
   const latestYear = billingData.length > 0 ? billingData[billingData.length - 1] : {
     monthlyRevenue: [],
     annualRevenue: 0,
@@ -22,8 +20,7 @@ export default function Dashboard() {
     activeClients: 0,
     yearLabel: "",
   };
-
-  // Dados do ano selecionado no gráfico mensal (para os cards que atualizam)
+  
   const selectedYear = billingData[selectedYearIndex] ?? {
     monthlyRevenue: [],
     annualRevenue: 0,
