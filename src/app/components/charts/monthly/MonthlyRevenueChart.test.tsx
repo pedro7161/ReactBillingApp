@@ -1,4 +1,5 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import MonthlyRevenueChart from './MonthlyRevenueChart';
 
 const mockData = [
@@ -32,7 +33,7 @@ describe('MonthlyRevenueChart', () => {
     expect(screen.getByRole('combobox')).toBeInTheDocument();
   });
 
-  it('allows year selection', () => {
+  it('allows year selection using keyboard', async () => {
     const onYearChange = jest.fn();
     render(
       <MonthlyRevenueChart 
@@ -41,8 +42,14 @@ describe('MonthlyRevenueChart', () => {
         onYearChange={onYearChange}
       />
     );
-    
-    fireEvent.change(screen.getByRole('combobox'), { target: { value: '1' } });
+
+    const comboBox = screen.getByRole('combobox');
+
+    await userEvent.click(comboBox);
+    const option = await screen.findByText('2024');
+    await userEvent.click(option);
+
+   
     expect(onYearChange).toHaveBeenCalledWith(1);
   });
 });

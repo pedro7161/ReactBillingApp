@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import Dashboard from './page';
 
 jest.mock('@/context/BillingContext', () => ({
@@ -22,10 +22,33 @@ jest.mock('@/context/BillingContext', () => ({
   }),
 }));
 
-jest.mock('@/app/components/charts/MonthlyRevenueChart', () => () => <div>MonthlyRevenueChart</div>);
-jest.mock('@/app/components/charts/AnnualRevenueChart', () => () => <div>AnnualRevenueChart</div>);
-jest.mock('@/app/components/dashboard/cards/statsCards', () => ({ title, value }: any) => <div>{title}: {value}</div>);
-jest.mock('@/app/components/dashboard/clientsCarousel/clientCarousel', () => () => <div>ClientsCarousel</div>);
+jest.mock('@/app/components/charts/monthly/MonthlyRevenueChart', () => ({
+  __esModule: true,
+  default: function MockMonthlyRevenueChart() {
+    return <div>MonthlyRevenueChart</div>;
+  }
+}));
+
+jest.mock('@/app/components/charts/annual/AnnualRevenueChart', () => ({
+  __esModule: true,
+  default: function MockAnnualRevenueChart() {
+    return <div>AnnualRevenueChart</div>;
+  }
+}));
+
+jest.mock('@/app/components/dashboard/cards/statsCards', () => ({
+  __esModule: true,
+  default: function MockStatsCard({ title, value }: any) {
+    return <div>{title}: {value}</div>;
+  }
+}));
+
+jest.mock('@/app/components/dashboard/clientsCarousel/clientCarousel', () => ({
+  __esModule: true,
+  default: function MockClientsCarousel() {
+    return <div>ClientsCarousel</div>;
+  }
+}));
 
 describe('Dashboard', () => {
   it('renders dashboard stats and charts', () => {

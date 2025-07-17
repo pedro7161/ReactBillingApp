@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 import RequirementList from "@/app/components/requisitos/requirements/requirementList/RequirementList";
-import ExtraRequirementSection from "@/app/components/requisitos/requirements/extraRquirements/ExtraRequirementSection";
+import ExtraRequirementSection from "@/app/components/requisitos/requirements/extraRequirements/ExtraRequirementSection";
 import DeadlineBlock from "@/app/components/requisitos/deadline/DeadlineBlock";
 
 import requirementDataJSON from "@/data/requirements.json";

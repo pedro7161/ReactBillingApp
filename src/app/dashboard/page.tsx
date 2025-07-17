@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { useBilling } from '@/context/BillingContext';
 
-import MonthlyRevenueChart from '@/app/components/charts/MonthlyRevenueChart';
-import AnnualRevenueChart from '@/app/components/charts/AnnualRevenueChart';
+import MonthlyRevenueChart from '@/app/components/charts/monthly/MonthlyRevenueChart';
+import AnnualRevenueChart from '@/app/components/charts/annual/AnnualRevenueChart';
 import StatsCard from '@/app/components/dashboard/cards/statsCards';
 import ClientsCarousel from "@/app/components/dashboard/clientsCarousel/clientCarousel";
 

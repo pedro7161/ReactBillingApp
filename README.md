@@ -20,6 +20,26 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Testing
+
+To run tests in watch mode:
+
+```bash
+npx jest --watch
+```
+
+This will:
+- Run all tests initially
+- Watch for file changes
+- Re-run tests related to changed files
+- Show an interactive menu for test filtering
+
+Press 'w' to show more options:
+- Press 'a' to run all tests
+- Press 'f' to run only failed tests
+- Press 'p' to filter by a filename regex pattern
+- Press 't' to filter by a test name regex pattern
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

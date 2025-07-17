@@ -18,7 +18,7 @@ describe('ClientsCarousel', () => {
   it('updates clients after interval', () => {
     render(<ClientsCarousel />);
     const initialClients = screen.getAllByRole('heading').map(h => h.textContent);
-    
+
     act(() => {
       jest.advanceTimersByTime(5000);
     });
@@ -32,7 +32,7 @@ describe('ClientsCarousel', () => {
     act(() => {
       jest.advanceTimersByTime(15000);
     });
-    
+
     expect(screen.getAllByRole('heading').length).toBeLessThanOrEqual(3);
   });
 });

@@ -16,7 +16,7 @@ jest.mock('@/data/deadlines.json', () => ([
 ]));
 
 // Mock child components
-jest.mock('@/app/components/requisitos/RequirementList', () => ({ requirements, completedIds, onToggle }: any) => (
+jest.mock('@/app/components/requisitos/requirements/requirementList/RequirementList', () => ({ requirements, completedIds, onToggle }: any) => (
     <div>
         RequirementList
         {requirements.map((r: any) => (
@@ -27,7 +27,7 @@ jest.mock('@/app/components/requisitos/RequirementList', () => ({ requirements, 
         ))}
     </div>
 ));
-jest.mock('@/app/components/requisitos/ExtraRequirementSection', () => ({ requirements, completedIds, onToggle }: any) => (
+jest.mock('@/app/components/requisitos/requirements/extraRequirements/ExtraRequirementSection', () => ({ requirements, completedIds, onToggle }: any) => (
     <div>
         ExtraRequirementSection
         {requirements.map((r: any) => (
@@ -38,7 +38,7 @@ jest.mock('@/app/components/requisitos/ExtraRequirementSection', () => ({ requir
         ))}
     </div>
 ));
-jest.mock('@/app/components/requisitos/DeadlineBlock', () => ({ title, date }: any) => (
+jest.mock('@/app/components/requisitos/deadline/DeadlineBlock', () => ({ title, date }: any) => (
     <div>
         <span>{title}</span>
         <span>{date}</span>

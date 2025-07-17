@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import clientsData from '@/data/clients.json';
-import { v4 as uuidv4 } from 'uuid'; // ⬅️ import UUID
+import { v4 as uuidv4 } from 'uuid';
 
 const MAX_VISIBLE = 3;
 const INTERVAL_MS = 5000;
@@ -12,14 +12,13 @@ type Client = {
   name: string;
   plan: string;
   value: number;
-  _key?: string; // ⬅️ optional key for React
+  _key?: string;
 };
 
 export default function ClientsCarousel() {
   const [visibleClients, setVisibleClients] = useState<Client[]>([]);
 
   useEffect(() => {
-    // Initial load with unique keys
     const shuffled = [...clientsData].sort(() => 0.5 - Math.random());
     setVisibleClients(
       shuffled.slice(0, MAX_VISIBLE).map((client) => ({
@@ -31,7 +30,7 @@ export default function ClientsCarousel() {
     const interval = setInterval(() => {
       const randomClient = {
         ...clientsData[Math.floor(Math.random() * clientsData.length)],
-        _key: uuidv4(), // ⬅️ new unique key
+        _key: uuidv4(),
       };
 
       setVisibleClients((prev) => {
@@ -50,7 +49,7 @@ export default function ClientsCarousel() {
           key={client._key}
           className="bg-white shadow-md p-4 rounded-md transition-opacity duration-700 ease-in-out opacity-100"
         >
-          <p className="font-semibold">{client.name}</p>
+          <h3 className="font-semibold">{client.name}</h3>
           <p className="text-gray-500">Plano: {client.plan}</p>
           <p className="text-green-600 font-bold">€{client.value}</p>
         </div>
