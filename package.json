@@ -1,13 +1,16 @@
 {
   "name": "techibilling",
   "version": "0.1.0",
+  "homepage": "https://pedro7161.github.io/ReactBillingApp",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest"
+    "test": "jest",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -f -d out"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -36,6 +39,7 @@
     "babel-jest": "^30.0.4",
     "eslint": "^9",
     "eslint-config-next": "15.4.1",
+    "gh-pages": "^6.3.0",
     "jest": "^30.0.4",
     "jest-environment-jsdom": "^30.0.4",
     "tailwindcss": "^4",
